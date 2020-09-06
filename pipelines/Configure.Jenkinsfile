@@ -11,10 +11,6 @@ pipeline {
         }
     }
 
-    parameters{
-        string(name: 'VERSION', defaultValue: '', description: 'Build version')
-    }
-
     stages {
 
 

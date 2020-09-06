@@ -22,15 +22,14 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'nexus-admin', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
                     sh "curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${parms.VERSION}/timeoff-managment-${parms.VERSION}.tar.gz -O"
                     sh " ls -lat"
-
-                    //sh "tar -xzvf timeoff-diego-jimenez-1.0.tar.gz && ls -lat"
                 }
             }
         }
         stage('Deploy') {
             steps {
-                sh "scp timeoff-diego-jimenez-1.0.tar.gz timeoff@192.168.1.122:/home/timeoff"
-                sh "tar -xzvf /home/timeoff/timeoff-diego-jimenez-1.0.tar.gz"
+                sh "scp timeoff-managment-${parms.VERSION}.tar.gz timeoff@192.168.1.122:/home/timeoff"
+                sh "cd /home/timeoff && rm -rf timeoff-managment-*"
+                sh "tar -xzvf /home/timeoff/timeoff-managment-jimenez-${parms.VERSION}.tar.gz && "
 
             }
         }
@@ -40,7 +39,6 @@ pipeline {
             script {
                 echo "Cleaning Workspace"
                 cleanWs()
-                //sh "rm -rf ${env.WORKSPACE}/"
             }
         }
     }

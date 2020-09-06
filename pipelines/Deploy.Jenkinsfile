@@ -26,6 +26,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh "scp timeoff-diego-jimenez-1.0.tar.gz timeoff@192.168.1.122:/home/timeoff"
+                sh "tar -xzvf /home/timeoff/timeoff-diego-jimenez-1.0.tar.gz"
+
             }
         }
     }

@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Configure') {
             steps {
-                ssh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff"
+                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff"
             }
         }
         stage('Deploy') {

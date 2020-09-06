@@ -22,7 +22,7 @@ pipeline {
                 url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
 
                 sh "ls -lat"
-                sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}  ./timeoff-diego-jimenez"
+                sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}/*  ./timeoff-diego-jimenez"
 
             }
         }

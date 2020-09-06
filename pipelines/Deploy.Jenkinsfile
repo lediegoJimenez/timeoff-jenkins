@@ -19,6 +19,8 @@ pipeline {
                     sh "curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/1.0/timeoff-diego-jimenez-1.0.tar.gz -O"
 
                     sh " ls -lat"
+
+                    sh "tar -xzvf timeoff-diego-jimenez-1.0.tar.gz && ls -lat"
                 }
             }
         }

@@ -28,12 +28,15 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=timeoff-diego-jimenez.tar.gz"
+                sh "tar -czvf tmieoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude='*.tar.gz'"
             }
         }
         stage('Deploy') {
             steps {
-                sh "curl -v -u admin:nexus123 --upload-file timeoff-diego-jimenez.tar.gz  http://192.168.1.144:8081/repository/timeoff/org/gorilla/1.0/timeoff-diego-jimenez-1.0.tar.gz"
+
+                withCredentials([usernamePassword(credentialsId: 'nexus-admin', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
+                    sh "curl -v -u $NEXUS_USER:$NEXUS_PASS --upload-file timeoff-diego-jimenez.tar.gz  http://192.168.1.144:8081/repository/timeoff/org/gorilla/1.0/timeoff-diego-jimenez-1.0.tar.gz"
+                }
             }
         }
     }
@@ -41,7 +44,7 @@ pipeline {
         always {
             script {
                 echo "Cleaning Workspace"
-                cleanws()
+                cleanWs()
                 sh "rm -rf ${env.WORKSPACE}/"
             }
         }

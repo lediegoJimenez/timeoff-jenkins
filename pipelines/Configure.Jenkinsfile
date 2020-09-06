@@ -23,16 +23,15 @@ pipeline {
 
                 git branch: 'master',
                 credentialsId: 'gihub-creds',
-                url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
+                url: 'git@github.com:lediegoJimenez/timeoff-ansible.git'
 
                 sh "ls -lat"
 
             }
         }
-        stage('Build') {
+        stage('Configure') {
             steps {
-                //sh "tar -czvf ${env.WORKSPACE}/artifacts/timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=./artifacts"
-                sh "cd ${env.WORKSPACE} && tar -czvf timeoff-management.tar.gz ./app/* "
+                ssh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff"
             }
         }
         stage('Deploy') {

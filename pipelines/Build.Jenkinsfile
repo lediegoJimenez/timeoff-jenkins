@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "tar -czvf ${env.WORKSPACE}/tarfile/timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=./artifacts"
+                sh "tar -czvf ${env.WORKSPACE}/artifacts/timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=./artifacts"
             }
         }
         stage('Deploy') {

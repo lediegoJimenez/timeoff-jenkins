@@ -11,6 +11,10 @@ pipeline {
         }
     }
 
+    parameters{
+        string(name: 'VERSION', defaultValue: '', description: 'Build version')
+    }
+
     stages {
 
 
@@ -22,7 +26,6 @@ pipeline {
                 url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
 
                 sh "ls -lat"
-                //sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}/*  ./timeoff-diego-jimenez"
                 sh "mkdir artifacts"
 
             }
@@ -30,14 +33,14 @@ pipeline {
         stage('Build') {
             steps {
                 //sh "tar -czvf ${env.WORKSPACE}/artifacts/timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=./artifacts"
-                sh "cd ${env.WORKSPACE} && tar -czvf /tmp/timeoff-diego-jimenez.tar.gz ./* --exclude=./artifacts"
+                sh "cd ${env.WORKSPACE} && tar -czvf /tmp/timeoff-management.tar.gz ./* --exclude=./artifacts"
             }
         }
         stage('Deploy') {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'nexus-admin', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
-                    sh "curl -v -u $NEXUS_USER:$NEXUS_PASS --upload-file /tmp/timeoff-diego-jimenez.tar.gz  http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/1.0/timeoff-diego-jimenez-1.0.tar.gz"
+                    sh "curl -v -u $NEXUS_USER:$NEXUS_PASS --upload-file /tmp/timeoff-management.tar.gz  http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-management-${params.VERSION}.tar.gz"
                 }
             }
         }

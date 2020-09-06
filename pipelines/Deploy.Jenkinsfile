@@ -21,16 +21,16 @@ pipeline {
         stage('Download') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'nexus-admin', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
-                    sh "curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${parms.VERSION}/timeoff-managment-${parms.VERSION}.tar.gz -O"
+                    sh "curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-managment-${params.VERSION}.tar.gz -O"
                     sh " ls -lat"
                 }
             }
         }
         stage('Deploy') {
             steps {
-                sh "scp timeoff-managment-${parms.VERSION}.tar.gz timeoff@${parms.VIRTUALMACHINE}:/home/timeoff"
-                sh "ssh timeoff@${parms.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-managment-*\""
-                sh "ssh timeoff@${parms.VIRTUALMACHINE} \"tar -xzvf /home/timeoff/timeoff-managment-jimenez-${parms.VERSION}.tar.gz\""
+                sh "scp timeoff-managment-${params.VERSION}.tar.gz timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
+                sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-managment-*\""
+                sh "ssh timeoff@${params.VIRTUALMACHINE} \"tar -xzvf /home/timeoff/timeoff-managment-jimenez-${params.VERSION}.tar.gz\""
 
             }
         }

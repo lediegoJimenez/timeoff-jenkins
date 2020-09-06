@@ -13,8 +13,9 @@ pipeline {
 
     parameters{
         string(name: 'VERSION', defaultValue: '', description: 'Build version')
+        string(name: 'VIRTUALMACHINE', defaultValue: '', description: 'Build version')
     }
-
+    
     stages {
 
 
@@ -47,7 +48,7 @@ pipeline {
     post{
         success {
              build job: 'Configure_VM', parameters: [
-                 string(name: 'VERSION', defaultValue: '', description: 'Build version')
+                string(name: 'VERSION', defaultValue: '', description: 'Build version')
              ]
         }
         always {

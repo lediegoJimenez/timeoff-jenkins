@@ -11,6 +11,11 @@ pipeline {
         }
     }
 
+    parameters{
+        string(name: 'VERSION', defaultValue: '', description: 'Build version')
+        string(name: 'VIRTUALMACHINE', defaultValue: '', description: 'Build version')
+    }
+
     stages {
 
         stage('Chekout Repo') {
@@ -26,6 +31,8 @@ pipeline {
         }
         stage('Configure') {
             steps {
+
+                sh "cd inventories && rm -rf timeoff && echo \"[timeoff]\n ${params.VIRTUALMACHINE} ansible_user=timeoff \n\" >> timeoff && cat timeoff"
                 sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=time123\""
             }
         }

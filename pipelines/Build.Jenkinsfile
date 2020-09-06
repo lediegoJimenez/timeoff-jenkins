@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --ignore-failed-read"
+                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --exclude=timeoff-diego-jimenez.tar.gz"
             }
         }
         stage('Deploy') {

@@ -22,13 +22,13 @@ pipeline {
                 url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
 
                 sh "ls -lat"
-                sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}/*  ./timeoff-diego-jimenez"
+                //sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}/*  ./timeoff-diego-jimenez"
 
             }
         }
         stage('Build') {
             steps {
-                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE}/timeoff-diego-jimenez"
+                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE} --ignore-failed-read"
             }
         }
         stage('Deploy') {

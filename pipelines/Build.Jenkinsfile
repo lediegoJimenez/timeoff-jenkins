@@ -16,16 +16,19 @@ pipeline {
 
         stage('Chekout Repo') {
             steps {
+
                 git branch: 'master',
                 credentialsId: 'gihub-creds',
                 url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
 
-            sh "ls -lat"
+                sh "ls -lat"
+                sh "mkdir timeoff-diego-jimenez && mv  ${env.WORKSPACE}  ./timeoff-diego-jimenez"
+
             }
         }
         stage('Build') {
             steps {
-                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE}"
+                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE}/timeoff-diego-jimenez"
             }
         }
         stage('Deploy') {

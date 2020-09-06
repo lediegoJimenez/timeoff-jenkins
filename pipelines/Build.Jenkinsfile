@@ -1,3 +1,7 @@
+// Build pipelines
+
+String JENKINS_NODE = 'master'
+
 pipeline {
     
     agent{

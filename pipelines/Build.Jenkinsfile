@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE}/timeoff-diego-jimenez"
+                sh "tar -czvf timeoff-diego-jimenez.tar.gz ${env.WORKSPACE}"
             }
         }
         stage('Deploy') {

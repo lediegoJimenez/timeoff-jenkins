@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Configure') {
             steps {
-                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=admin123\""
+                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=time123\""
             }
         }
         stage('Deploy') {

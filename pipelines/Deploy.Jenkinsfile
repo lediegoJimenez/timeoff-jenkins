@@ -13,6 +13,7 @@ pipeline {
 
     parameters{
         string(name: 'VERSION', defaultValue: '', description: 'Build version')
+        string(name: 'VIRTUALMACHINE', defaultValue: '', description: 'Build version')
     }
 
     stages {
@@ -27,9 +28,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "scp timeoff-managment-${parms.VERSION}.tar.gz timeoff@192.168.1.122:/home/timeoff"
-                sh "cd /home/timeoff && rm -rf timeoff-managment-*"
-                sh "tar -xzvf /home/timeoff/timeoff-managment-jimenez-${parms.VERSION}.tar.gz && "
+                sh "scp timeoff-managment-${parms.VERSION}.tar.gz timeoff@${parms.VIRTUALMACHINE}:/home/timeoff"
+                sh "ssh timeoff@${parms.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-managment-*\""
+                sh "ssh timeoff@${parms.VIRTUALMACHINE} \"tar -xzvf /home/timeoff/timeoff-managment-jimenez-${parms.VERSION}.tar.gz\""
 
             }
         }

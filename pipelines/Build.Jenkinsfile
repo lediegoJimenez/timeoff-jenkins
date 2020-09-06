@@ -37,4 +37,13 @@ pipeline {
             }
         }
     }
+    post{
+        always {
+            script {
+                echo "Cleaning Workspace"
+                cleanws()
+                sh "rm -rf ${env.WORKSPACE}/"
+            }
+        }
+    }
 }

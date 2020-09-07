@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "cd ${env.WORKSPACE} && tar -czvf /tmp/timeoff-management.tar.gz ./* --exclude=./artifacts && ls -lat"
+                sh "tar -czvf /tmp/timeoff-management.tar.gz ${env.WORKSPACE} --exclude=./artifacts && ls -lat"
                 //sh "cd ${env.WORKSPACE} && tar -czvf timeoff-management.tar.gz ./app/* "
             }
         }

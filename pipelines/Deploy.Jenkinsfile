@@ -28,10 +28,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "scp timeoff-managment-${params.VERSION}.tar.gz timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
+                //sh "scp timeoff-managment-${params.VERSION}.tar.gz timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && chmod -R 750 timeoff-managment-${params.VERSION}.tar.gz\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"tar -xzvf /home/timeoff/timeoff-managment-${params.VERSION}.tar.gz\""
-
             }
         }
     }

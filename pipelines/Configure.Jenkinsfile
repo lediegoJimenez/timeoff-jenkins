@@ -31,9 +31,10 @@ pipeline {
         }
         stage('Configure') {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'ansible-admin', passwordVariable: 'ANSIBLE_PASS')]) {
 
                 sh "cd inventories && rm -rf timeoff && echo \"[timeoff]\n${params.VIRTUALMACHINE} ansible_user=timeoff\n\" >> timeoff && cat timeoff"
-                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=time123\""
+                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=$ANSIBLE_PASS\""
             }
         }
 

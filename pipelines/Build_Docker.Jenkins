@@ -13,7 +13,6 @@ pipeline {
 
     parameters{
         string(name: 'VERSION', defaultValue: '', description: 'Build version')
-        string(name: 'VIRTUALMACHINE', defaultValue: '', description: 'Virtual Machine')
     }
 
     stages {
@@ -42,8 +41,7 @@ pipeline {
     post{
         success {
              build job: 'Deploy_Docker', parameters: [
-                string(name: 'VERSION', value: "${params.VERSION}"),
-                string(name: 'VIRTUALMACHINE', value: "${params.VIRTUALMACHINE}")
+                string(name: 'VERSION', value: "${params.VERSION}")
              ]
         }
         always {

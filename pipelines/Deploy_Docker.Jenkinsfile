@@ -13,7 +13,6 @@ pipeline {
 
     parameters{
         string(name: 'VERSION', defaultValue: '', description: 'Build version')
-        string(name: 'VIRTUALMACHINE', defaultValue: '', description: 'Virtual Machine')
     }
 
     stages {

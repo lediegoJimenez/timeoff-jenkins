@@ -24,12 +24,12 @@ pipeline {
                     sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-managment-*\""
                     //sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-managment-${params.VERSION}.zip -O\""
 
-                    sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && " +
-                       "curl -X GET -u $NEXUS_USER:$NEXUS_PASS \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F${params.VERSION}%2Ftimeoff-management-${params.VERSION}.zip\" "+
-                       "-H \"accept: application/json\" | grep -Po \'\"downloadUrl\" : \"\\K.+(?=\",)\' | xargs curl -u $NEXUS_USER:$NEXUS_PASS -fsSL -o timeoff-management-${params.VERSION}.zip\""
+                    sh """
+                        ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && \
+                        curl -X GET -u $NEXUS_USER:$NEXUS_PASS \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F${params.VERSION}%2Ftimeoff-management-${params.VERSION}.zip\" \
+                        -H \"accept: application/json\" | grep -Po \'\"downloadUrl\" : \"\\K.+(?=\",)\' | xargs curl -u $NEXUS_USER:$NEXUS_PASS -fsSL -o timeoff-management-${params.VERSION}.zip\"
+                    """
 
-                       curl -X GET -u admin:nexus123 "http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F1.11%2Ftimeoff-management-1.11.zip" 
-                       -H "accept: application/json" | grep -Po '"downloadUrl" : "\K.+(?=",)' | xargs curl -u admin:nexus123 -fsSL -o my-artifact.jar
                 }
             }
         }

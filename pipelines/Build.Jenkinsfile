@@ -47,7 +47,7 @@ pipeline {
     }
     post{
         success {
-             build job: 'Deploy_Project', parameters: [
+             build job: 'Configure_VM', parameters: [
                 string(name: 'VERSION', value: "${params.VERSION}"),
                 string(name: 'VIRTUALMACHINE', value: "${params.VIRTUALMACHINE}")
              ]

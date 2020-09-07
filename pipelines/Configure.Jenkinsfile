@@ -32,13 +32,19 @@ pipeline {
         stage('Configure') {
             steps {
 
-                sh "cd inventories && rm -rf timeoff && echo \"[timeoff]\n ${params.VIRTUALMACHINE} ansible_user=timeoff \n\" >> timeoff && cat timeoff"
+                sh "cd inventories && rm -rf timeoff && echo \"[timeoff]\n${params.VIRTUALMACHINE} ansible_user=timeoff\n\" >> timeoff && cat timeoff"
                 sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-vars \"ansible_sudo_pass=time123\""
             }
         }
 
     }
     post{
+        success {
+             build job: 'Deploy_Project', parameters: [
+                string(name: 'VERSION', value: "${params.VERSION}"),
+                string(name: 'VIRTUALMACHINE', value: "${params.VIRTUALMACHINE}")
+             ]
+        }
         always {
             script {
                 echo "Cleaning Workspace"

@@ -36,7 +36,7 @@ pipeline {
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-managment-*\""
 
                 //withCredentials([usernamePassword(credentialsId: 'ansible-admin', passwordVariable: 'ANSIBLE_PASS', usernameVariable: 'ANSIBLE_USER')]) {               
-                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-var \"ansible_sudo_pass=time123 url_repo=http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-managment-${params.VERSION}.zip\""                 
+                sh "ansible-playbook -i ./inventories/timeoff playbook.yaml -vvv --tags timeoff --extra-var \"ansible_sudo_pass=time123 url_repo=http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-management-${params.VERSION}.zip\""                 
                 //}
             }
         }

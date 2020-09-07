@@ -46,7 +46,7 @@ pipeline {
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-management-*\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && ./bash.sh\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && chmod -R 750 timeoff-management-${params.VERSION}.zip\""
-                sh "ssh timeoff@${params.VIRTUALMACHINE} \"mkdir timeoff-management-${params.VERSION} && unzip /home/timeoff/timeoff-management-${params.VERSION}/timeoff-management-${params.VERSION}.zip\""
+                sh "ssh timeoff@${params.VIRTUALMACHINE} \"mkdir timeoff-management-${params.VERSION} && unzip -d /home/timeoff/timeoff-management-${params.VERSION} /home/timeoff/timeoff-management-${params.VERSION}.zip\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff/timeoff-management-${params.VERSION} && npm install && npm start > /dev/null 2>&1 & \""
             }
         }

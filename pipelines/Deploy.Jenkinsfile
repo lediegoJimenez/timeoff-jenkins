@@ -22,27 +22,12 @@ pipeline {
             steps {
             
                 withCredentials([usernamePassword(credentialsId: 'nexus-admin', passwordVariable: 'NEXUS_PASS', usernameVariable: 'NEXUS_USER')]) {
-                    //sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-management-*\""
-                    //sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && curl -X GET -u $NEXUS_USER:$NEXUS_PASS http://192.168.1.144:8081/repository/timeoff-raw/org/gorilla/${params.VERSION}/timeoff-managment-${params.VERSION}.zip -O\""
-
-        
-                    //sh "echo \"ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && curl -X GET -u $NEXUS_USER:$NEXUS_PASS \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F${params.VERSION}%2Ftimeoff-management-${params.VERSION}.zip\" -H \"accept: application/json\" | grep -Po \'\"downloadUrl\" : \"\\K.+(?=\",)\' | xargs curl -u $NEXUS_USER:$NEXUS_PASS -fsSL -o timeoff-management-${params.VERSION}.zip\"\""
-                    //sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && curl -X GET -u $NEXUS_USER:$NEXUS_PASS \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F${params.VERSION}%2Ftimeoff-management-${params.VERSION}.zip\" -H \"accept: application/json\" | grep -Po \'\"downloadUrl\" : \"\\K.+(?=\",)\' | xargs curl -u $NEXUS_USER:$NEXUS_PASS -fsSL -o timeoff-management-${params.VERSION}.zip\""
-
-                    //sh "ssh timeoff@${params.VIRTUALMACHINE} curl -X GET -u $NEXUS_USER:$NEXUS_PASS \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F${params.VERSION}%2Ftimeoff-management-${params.VERSION}.zip\" | grep -Po '\"downloadUrl\" : \"\\K.+(?=\",)' | xargs curl -u $NEXUS_USER:$NEXUS_PASS -fsSL -o timeoff-management-${params.VERSION}.zip"
-
-                    //sh """
-                    //    echo \"curl -X GET -u admin:123 \"http://192.168.1.144:8081/service/rest/v1/search/assets?repository=timeoff-raw&name=org%2Fgorilla%2F1.11%2Ftimeoff-management-1.11.zip\" | grep -Po '\"downloadUrl\" : \"\\K.+(?=\",)' | xargs curl -u admin:1213 -fsSL -o timeoff-management-1.11.zip\" >> bash.sh && cat bash.sh
-                    //"""
-
-                    //sh "scp bash.sh timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
-
+                    //DOWNLOAD
                 }
             }
         }
         stage('Deploy') {
             steps {
-                //sh "scp timeoff-managment-${params.VERSION}.tar.gz timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && rm -rf timeoff-management-*\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && ./bash.sh\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && chmod -R 750 timeoff-management-${params.VERSION}.zip\""

@@ -19,8 +19,8 @@ pipeline {
 
         stage('Stop and Delete Container') {
             steps {
-                sh "ssh docker@192.168.1.144 \" docker container stop timeoff\""
-                sh "ssh docker@192.168.1.144 \" docker container rm timeoff\""
+                sh "ssh docker@192.168.1.144 \"docker container stop timeoff\""
+                sh "ssh docker@192.168.1.144 \"docker container rm timeoff\""
             }
         }
 

@@ -45,7 +45,7 @@ pipeline {
                 //sh "scp timeoff-managment-${params.VERSION}.tar.gz timeoff@${params.VIRTUALMACHINE}:/home/timeoff"
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && ./bash.sh\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff && chmod -R 750 timeoff-managment-${params.VERSION}.zip\""
-                sh "ssh timeoff@${params.VIRTUALMACHINE} \"unzip /home/timeoff/timeoff-managment-${params.VERSION}.zip\""
+                sh "ssh timeoff@${params.VIRTUALMACHINE} \"mkdir timeoff-managment-${params.VERSION} && unzip /home/timeoff/timeoff-managment-${params.VERSION}/timeoff-managment-${params.VERSION}.zip\""
                 sh "ssh timeoff@${params.VIRTUALMACHINE} \"cd /home/timeoff/timeoff-managment-${params.VERSION} && npm install && npm start > /dev/null 2>&1 & \""
             }
         }

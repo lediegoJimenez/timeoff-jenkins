@@ -39,12 +39,12 @@ pipeline {
 
     }
     post{
-        success {
+        /*success {
              build job: 'Deploy_Project', parameters: [
                 string(name: 'VERSION', value: "${params.VERSION}"),
                 string(name: 'VIRTUALMACHINE', value: "${params.VIRTUALMACHINE}")
              ]
-        }
+        }*/
         always {
             script {
                 echo "Cleaning Workspace"

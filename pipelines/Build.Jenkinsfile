@@ -47,7 +47,7 @@ pipeline {
     }
     post{
         success {
-             build job: 'Configure_VM', parameters: [
+             build job: 'Deploy_Project', parameters: [
                 string(name: 'VERSION', value: "${params.VERSION}"),
                 string(name: 'VIRTUALMACHINE', value: "${params.VIRTUALMACHINE}")
              ]
@@ -56,7 +56,6 @@ pipeline {
             script {
                 echo "Cleaning Workspace"
                 cleanWs()
-                //sh "rm -rf ${env.WORKSPACE}/"
             }
         }
     }

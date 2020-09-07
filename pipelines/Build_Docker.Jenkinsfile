@@ -17,17 +17,31 @@ pipeline {
 
     stages {
 
+        stage('Chekout Repo') {
+            steps {
+
+                git branch: 'master',
+                credentialsId: 'gihub-creds',
+                url: 'git@github.com:lediegoJimenez/timeoff-diego-jimenez.git'
+
+                sh "ls -lat"
+
+            }
+        }
+
         stage('Upload Dockerfile') {
             steps {
                 sh "ssh docker@192.168.1.144 \"cd /home/docker && rm -rf timeoff && mkdir timeoff\""
                 sh "scp Dockerfile docker@192.168.1.144:/home/docker/timeoff"
             }
         }
+
         stage('Build Image') {
             steps {
                 sh "ssh docker@192.168.1.144 \"cd /home/docker/timeoff && docker build --tag timeoff:${params.VERSION} . \""      
             }
         }
+        
         stage('Push Image') {
             steps {
                 sh "ssh docker@192.168.1.144 \"docker tag timeoff:${params.VERSION} 192.168.1.144:8085/timeoff:${params.VERSION} \""

@@ -32,8 +32,8 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "zip -r timeoff-management.zip ${env.WORKSPACE} && ls -lat"
-                //sh "cd ${env.WORKSPACE} && tar -czvf timeoff-management.tar.gz ./app/* "
+                //sh "zip -r timeoff-management.zip ${env.WORKSPACE} && ls -lat"
+                sh "cd ${env.WORKSPACE} && zip -r timeoff-management.zip ./* && ls -lat "
             }
         }
         stage('Deploy') {
